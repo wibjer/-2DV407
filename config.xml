@@ -8,7 +8,7 @@
     <gap:platform name="android" />
     <!-- versionCode is optional and Android only -->
 
-    <name>Johans app</name>
+    <name>JWapp</name>
 
     <description>
         Short description
