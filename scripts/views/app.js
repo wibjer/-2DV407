@@ -1,6 +1,8 @@
+// Making hello world 
 define(['backbone'], function(Backbone) {
   var App = Backbone.View.extend({
     el: $('body'),
+    //making an event for the button 
     events:{
         'click button#add' : 'additem'
     },
