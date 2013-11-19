@@ -1,11 +1,14 @@
 require.config({
-  paths: {
-    'jquery': 'vendor/jquery/jquery',
-    'underscore': 'vendor/underscore-amd/underscore',
-    'backbone': 'vendor/backbone-amd/backbone',
-  }
+	baseUrl: "scripts/",
+	paths: {
+			'jquery': 'vendor/jquery',
+			'underscore': 'vendor/underscore',
+			'backbone': 'vendor/backbone',
+			'backbone.localStorage': 'vendor/backbone.localStorage',
+			'bootstrap': 'vendor/bootstrap'
+	}
 });
 
 require(['views/app'], function(AppView) {
-  new AppView;
+	new AppView;
 });
