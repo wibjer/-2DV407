@@ -9,6 +9,7 @@ require.config({
 	}
 });
 
-require(['views/app'], function(AppView) {
+require(['views/app', 'views/menu'], function(AppView, menuView) {
 	new AppView;
+	new menuView;
 });
