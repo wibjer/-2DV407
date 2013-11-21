@@ -10,7 +10,7 @@ define(['backbone', 'underscore', 'jquery', 'bootstrap'], function(Backbone, _, 
             this.renderItem();
         },
         renderItem: function(){
-            this.$el.append('<li><a href="/brocco.html">Brocco</a></li>');
+            this.$el.append('<li><a href="/-2DV407/brocco.html">Brocco</a></li>');
         }
     });
 
