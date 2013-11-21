@@ -15,7 +15,7 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
         
         render: function(){
             var counts = $('[id^=hello]').length;
-            this.$el.append('<input type="textarea" id="metaSourceText" class="form-control" placeholder="Input your unimportant shit"><p><a class="btn btn-lg btn-success" href="#" role="button" id="add">Fucking Do!</a></p>');
+            this.$el.append('<input type="textarea" id="metaSourceText" class="form-control" placeholder="FUCK are u going 2 do?"><p><a class="btn btn-lg btn-success" href="#" role="button" id="add">Fucking Do!</a></p>');
             this.$el.append("<p class='lead'>" + $("#hello").length + " st</p>"); 
         },
         
