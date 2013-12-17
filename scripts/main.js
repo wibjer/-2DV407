@@ -10,6 +10,6 @@ require.config({
 });
 
 require(['views/app', 'views/menu'], function(AppView, menuView) {
-	new AppView;
-	new menuView;
+    new AppView();
+	new menuView();
 });

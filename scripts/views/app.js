@@ -1,5 +1,5 @@
 // Making hello world 
-define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
+define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppController'], function(Backbone, _, $, Todo, collection) {
 
     var App = Backbone.View.extend({
         count: 0,
@@ -18,13 +18,26 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
             this.$el.append("</br><p class='lead'>" + $("#hello").length + " st</p>"); 
         },
         
+        newAtt: function(){
+            return {
+                title: $('#metaSourceValue').val(),
+                completed: false
+            };
+        },
+        title : function() {
+            return this.model.get('title');
+        },
+        
         additem: function(e){
             
              if (e.which !== 13 ) {
                                 return;
              }
-                var metaSourceValue = $('#metaSourceValue').val();
-                if(!metaSourceValue.trim())
+                collection.create(this.newAtt());
+                var todomodel = new Todo({
+                    model: todomodel
+                });
+                if(!$('#metaSourceValue').val().trim())
                 {
                     if($("#fail").length == 0){
                         if(this.count > 0)
@@ -39,7 +52,7 @@ define(['backbone', 'underscore', 'jquery'], function(Backbone, _, $) {
                 }
                 else{
                     $( "#fail" ).remove();
-                    this.$el.append("<ul><li><h3 id='hello'>" + metaSourceValue + "</h3></li></ul>");
+                    this.$el.append("<ul><li><h3 id='hello'>" + this.title() + "</h3></li></ul>");
                     $("#metaSourceValue").val('');
                 }
             }
