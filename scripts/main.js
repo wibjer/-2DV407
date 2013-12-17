@@ -9,7 +9,7 @@ require.config({
 	}
 });
 
-require(['views/app', 'views/menu'], function(AppView, menuView) {
-    new AppView();
+require(['views/app', 'views/menu', 'models/AppModel'], function(AppView, menuView, Todo) {
+    new AppView( { model: new Todo() });
 	new menuView();
 });
