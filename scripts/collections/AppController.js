@@ -7,5 +7,5 @@ define(['underscore','backbone','backbone.localStorage','models/AppModel'], func
                 // Save all of the todo items under the `"todos"` namespace.
                 localStorage: new Store('todos-backbone')
       });
-        return new Collection;
+        return Collection;
 });
