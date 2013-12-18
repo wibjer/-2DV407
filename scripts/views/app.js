@@ -10,6 +10,7 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         },
         initialize: function() {
             this.todos = new Collection();
+            this.todos.fetch();
              _.bindAll(this, 'render','additem');
             this.render();
         },
@@ -17,6 +18,8 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         render: function(){
             this.$el.append('<input type="textarea" id="metaSourceValue"  class="form-control" placeholder="FUCK are u going 2 do?">');
             this.$el.append("</br><p class='lead'>" + $("#hello").length + " st</p>"); 
+            this.$el.append("<ul><li><h3 id='hello'>" + this.title().toJSON + "</h3></li></ul>");
+            
         },
         
         newAtt: function(){
@@ -36,7 +39,7 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
 
             if (input.length > 0) {
                 this.model.set("title", input);
-                this.todos.create(this.model);
+                this.todos.create(this.newAtt());
 
                 $( "#fail" ).remove();
                 this.$el.append("<ul><li><h3 id='hello'>" + this.title() + "</h3></li></ul>");
