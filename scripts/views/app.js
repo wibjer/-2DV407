@@ -10,7 +10,7 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         },
         initialize: function() {
             this.todos = new Collection();
-            this.todos.fetch();
+            this.todos.fetch({success:this.render});
              _.bindAll(this, 'render','additem');
             this.render();
         },
