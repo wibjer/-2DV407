@@ -18,10 +18,11 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         },
         
         render: function(){
-            console.log(this.$el);
+            var that = this;
             this.$el.append('<input type="textarea" id="metaSourceValue"  class="form-control" placeholder="FUCK are u going 2 do?">');
-            this.$el.append("</br><p class='lead'>" + $("#hello").length + " st</p>");
-            this.todos.each(this.renderOne);
+            this.todos.each(function (todo) {
+                that.renderOne(todo);
+            });
             
         },
         
@@ -34,8 +35,8 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         
         renderOne: function(model){
              console.log(this.$el);
-           return this.$el.append("<ul><li><h3 id='hello'>" + model.get("title") + "</h3></li></ul>");
-        },
+           return this.$el.append("<ul style='list-style:type: none;'><li><input class='checked' type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label></input></li></ul>");
+        }, 
         
         additem: function(e){
             if (e.which !== 13 ) { return; }
