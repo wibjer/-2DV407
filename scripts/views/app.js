@@ -2,23 +2,26 @@
 define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppController'], function(Backbone, _, $, Todo, Collection) {
 
     var App = Backbone.View.extend({
-        count: 0,
-        el: $('.jumbotron'),
+        
+        el: '.jumbotron',
+        
         //making an event for the button
         events:{
             'keypress #metaSourceValue': 'additem'
         },
+        
         initialize: function() {
             this.todos = new Collection();
-            this.todos.fetch({success:this.render});
-             _.bindAll(this, 'render','additem');
+            this.todos.fetch();
+            _.bindAll(this, 'render','additem');
             this.render();
         },
         
         render: function(){
+            console.log(this.$el);
             this.$el.append('<input type="textarea" id="metaSourceValue"  class="form-control" placeholder="FUCK are u going 2 do?">');
-            this.$el.append("</br><p class='lead'>" + $("#hello").length + " st</p>"); 
-            this.todos.forEach(this.renderOne);
+            this.$el.append("</br><p class='lead'>" + $("#hello").length + " st</p>");
+            this.todos.each(this.renderOne);
             
         },
         
@@ -28,7 +31,9 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
                 completed: false
             };
         },
+        
         renderOne: function(model){
+             console.log(this.$el);
            return this.$el.append("<ul><li><h3 id='hello'>" + model.get("title") + "</h3></li></ul>");
         },
         
@@ -39,13 +44,12 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
 
             if (input.length > 0) {
                 
-                var newModel = new Todo(this.newAtt());
+               var newModel = new Todo(this.newAtt());
                 this.todos.add(newModel);
                 this.renderOne(newModel);
                 newModel.save();
 
                 $( "#fail" ).remove();
-                this.$el.append("<ul><li><h3 id='hello'>" + this.title() + "</h3></li></ul>");
                 $("#metaSourceValue").val('');
             } else {
                 this.$el.append("<p id='fail'>Are you retarded? please fill the form!!!</p>");
