@@ -18,7 +18,7 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         render: function(){
             this.$el.append('<input type="textarea" id="metaSourceValue"  class="form-control" placeholder="FUCK are u going 2 do?">');
             this.$el.append("</br><p class='lead'>" + $("#hello").length + " st</p>"); 
-            this.$el.append("<ul><li><h3 id='hello'>" + this.title().toJSON + "</h3></li></ul>");
+            this.todos.forEach(this.renderOne);
             
         },
         
@@ -28,8 +28,8 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
                 completed: false
             };
         },
-        title : function() {
-            return this.model.get('title');
+        renderOne: function(model){
+           return this.$el.append("<ul><li><h3 id='hello'>" + model.get("title") + "</h3></li></ul>");
         },
         
         additem: function(e){
@@ -38,8 +38,11 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
             var input = $('#metaSourceValue').val().trim();
 
             if (input.length > 0) {
-                this.model.set("title", input);
-                this.todos.create(this.newAtt());
+                
+                var newModel = new Todo(this.newAtt());
+                this.todos.add(newModel);
+                this.renderOne(newModel);
+                newModel.save();
 
                 $( "#fail" ).remove();
                 this.$el.append("<ul><li><h3 id='hello'>" + this.title() + "</h3></li></ul>");
