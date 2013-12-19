@@ -7,7 +7,8 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         
         //making an event for the button
         events:{
-            'keypress #metaSourceValue': 'additem'
+            'keypress #metaSourceValue': 'additem',
+            'click .destroy':        'delete'
         },
         
         initialize: function() {
@@ -34,9 +35,17 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         },
         
         renderOne: function(model){
-             console.log(this.$el);
-           return this.$el.append("<ul style='list-style:type: none;'><li><input class='checked' type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label></input></li></ul>");
-        }, 
+           return this.$el.append("<ul style='list-style:type: none;'><li><input class='checked' type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button class='destroy'></button></input></li></ul>");
+        },
+        
+        // Remove the item, destroy the model from *localStorage* and delete its view.
+        delete: function(e){
+            var id = $(e.target).closest('#hello').attr('data-id');
+            if(id !== ''){
+                var model = model.get(id);
+                model.destroy();
+            }
+        },
         
         additem: function(e){
             if (e.which !== 13 ) { return; }
