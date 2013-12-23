@@ -40,9 +40,10 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         
         // Remove the item, destroy the model from *localStorage* and delete its view.
         delete: function(e){
-            var id = $(e.target).closest('#hello').attr('data-id');
-            if(id !== ''){
-                var model = model.get(id);
+            var id = $(e.target).closest(".hello");
+            if(id !== ""){
+                console.log(id);
+                var model = this.todos.get(id);
                 model.destroy();
             }
         },
