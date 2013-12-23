@@ -35,7 +35,7 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         },
         
         renderOne: function(model){
-           return this.$el.append("<ul style='list-style:type: none;'><li><input class='checked' type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button class='destroy'></button></input></li></ul>");
+           return this.$el.append("<ul style='list-style:type: none;'><li><input class='checked' type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button class='destroy' data-todo='"+model.id+'"></button></input></li></ul>");
         },
         
         // Remove the item, destroy the model from *localStorage* and delete its view.
