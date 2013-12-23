@@ -23,6 +23,7 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
             this.$el.append('<input type="textarea" id="metaSourceValue"  class="form-control" placeholder="FUCK are u going 2 do?">');
             this.todos.each(function (todo) {
                 that.renderOne(todo);
+
             });
             
         },
@@ -35,16 +36,19 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         },
         
         renderOne: function(model){
-           return this.$el.append("<ul style='list-style:type: none;'><li><input class='checked' type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button class='destroy'></button></input></li></ul>");
+            console.log(model.get("id"));
+            console.log(model.get("title"));
+           return this.$el.append("<ul style='list-style:type: none;'><li ><input class='checked' type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li></ul>");
         },
         
         // Remove the item, destroy the model from *localStorage* and delete its view.
         delete: function(e){
-            var id = $(e.target).closest(".hello");
+            
+            var id = $(e.target).attr("id");
             if(id !== ""){
                 console.log(id);
-                var model = this.todos.get(id);
-                model.destroy();
+                    var model = this.todos.get(id);
+                    model.destroy();
             }
         },
         
