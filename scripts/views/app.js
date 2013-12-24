@@ -20,7 +20,6 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         
         render: function(){
             var that = this;
-            this.$el.append('<input type="textarea" id="metaSourceValue"  class="form-control" placeholder="FUCK are u going 2 do?">');
             this.todos.each(function (todo) {
                 that.renderOne(todo);
 
@@ -28,17 +27,24 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
             
         },
         
+        addAll: function () {
+			this.$('#list-todos').html('');
+			this.todos.each(this.renderOne, this);
+		},
+
+        
         newAtt: function(){
             return {
                 title: $('#metaSourceValue').val(),
-                completed: false
+                completed: false,
+                id: Math.floor((Math.random()*500)+1) 
             };
         },
         
         renderOne: function(model){
             console.log(model.get("id"));
             console.log(model.get("title"));
-           return this.$el.append("<ul style='list-style:type: none;'><li ><input class='checked' type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li></ul>");
+           return $('#list-todos').append("<li><input class='checked' type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
         },
         
         // Remove the item, destroy the model from *localStorage* and delete its view.
@@ -47,8 +53,11 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
             var id = $(e.target).attr("id");
             if(id !== ""){
                 console.log(id);
-                    var model = this.todos.get(id);
-                    model.destroy();
+                   var model = this.todos.get(id);
+                   model.destroy();
+                   this.addAll();
+            }else {
+                console.log("null");
             }
         },
         
