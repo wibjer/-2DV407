@@ -15,7 +15,6 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         initialize: function() {
             this.todos = new Collection();
             this.todos.fetch();
-            //this.listenTo(this.Todo, 'change', this.render);
             _.bindAll(this, 'render','additem');
             this.render();
         },
@@ -32,6 +31,7 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         addAll: function () {
 			this.$('#list-todos').html('');
 			this.todos.each(this.renderOne, this);
+			this.count();
 		},
 
         
@@ -42,12 +42,26 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
                 id: Math.floor((Math.random()*500)+1) 
             };
         },
+        
+        count: function(){
+            var number = this.todos.length;
+            $( "#visible" ).remove();
+            console.log(number);
+            if(number == 0)
+            {
+                return null;
+            }
+            else
+            
+            return $('#count').append("<h3 id='visible'>Shit 2 do left: " + number + "</h3>");
+        },
          
-        checked: function (e) {
-            Todo.toggle();
+        checked: function () {
+            this.model.toggle();
 		},
 		
         renderOne: function(model){
+            this.count();
            return $('#list-todos').append("<li><input class='checked'type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
         },
         

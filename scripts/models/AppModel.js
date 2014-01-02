@@ -1,6 +1,6 @@
 define(['underscore','backbone'], function(_, Backbone) {
   
-  var Todo = Backbone.Model.extend({
+  var TodoModel = Backbone.Model.extend({
             defaults: {
                     title: "",
                     completed: false,
@@ -14,10 +14,10 @@ define(['underscore','backbone'], function(_, Backbone) {
             },
             toggle: function () {
                 this.save({
-                    completed: !this.get('completed')
+                completed: !this.get('completed')
                 });
             }
                
         });
-  return Todo;
+  return TodoModel;
 });
