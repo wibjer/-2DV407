@@ -4,7 +4,7 @@ define(['underscore','backbone','backbone.localStorage','models/AppModel'], func
                 // Reference to this collection's model.
                 model: Todo,
 
-                // Save all of the todo items under the `"todos"` namespace.
+                // Save all of the todo items 
                 localStorage: new Store('todos-backbone')
       });
         return Collection;

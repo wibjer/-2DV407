@@ -8,12 +8,14 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         //making an event for the button
         events:{
             'keypress #metaSourceValue': 'additem',
-            'click .destroy':        'delete'
+            'click .destroy':        'delete',
+            'click .checked':	'checked'
         },
         
         initialize: function() {
             this.todos = new Collection();
             this.todos.fetch();
+            //this.listenTo(this.Todo, 'change', this.render);
             _.bindAll(this, 'render','additem');
             this.render();
         },
@@ -40,11 +42,13 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
                 id: Math.floor((Math.random()*500)+1) 
             };
         },
-        
+         
+        checked: function (e) {
+            Todo.toggle();
+		},
+		
         renderOne: function(model){
-            console.log(model.get("id"));
-            console.log(model.get("title"));
-           return $('#list-todos').append("<li><input class='checked' type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
+           return $('#list-todos').append("<li><input class='checked'type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
         },
         
         // Remove the item, destroy the model from *localStorage* and delete its view.
