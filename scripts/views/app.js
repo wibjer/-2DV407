@@ -56,13 +56,23 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
             return $('#count').append("<h3 id='visible'>Shit 2 do left: " + number + "</h3>");
         },
          
-        checked: function () {
-            this.model.toggle();
+        checked: function (e) {
+            var id = $(e.target).attr("id");
+            if(id !== ""){
+                   var model = this.todos.get(id);
+                   model.toggle();
+            }
 		},
 		
         renderOne: function(model){
             this.count();
-           return $('#list-todos').append("<li><input class='checked'type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
+            console.log(model.get("completed"));
+            if(model.get("completed")=== true)
+            {
+                return $('#list-todos').append("<li><input class='checked' id='"+ model.get("id") + "' type='checkbox' checked><label><h3 id='hello'> " + model.get("title") + "</h3></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
+            }
+            else
+                return $('#list-todos').append("<li><input class='checked' id='"+ model.get("id") + "' type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
         },
         
         // Remove the item, destroy the model from *localStorage* and delete its view.
