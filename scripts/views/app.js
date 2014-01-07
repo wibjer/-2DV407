@@ -9,7 +9,10 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         events:{
             'keypress #submit':    'additem',
             'click .destroy':      'delete',
-            'click .checked':	   'checked'
+            'click .checked':	   'checked',
+            'dblclick .hello':       'edit',
+            'keypress .editform':    'edititem'
+            
         },
         
         initialize: function() {
@@ -49,10 +52,9 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
 			
             var number = remaining;
             $( "#visible" ).remove();
-            console.log(number);
             if(number === 0)
             {
-                number = "nothing"
+                number = "0 tasks and your mom"
             }
             
             return $('#count').append("<h3 id='visible'>Shit 2 do left: " + number + "</h3>");
@@ -69,13 +71,12 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
 		
         renderOne: function(model){
             this.count();
-            console.log(model.get("completed"));
             if(model.get("completed")=== true)
             {
-                return $('#list-todos').append("<li><input class='checked' id='"+ model.get("id") + "' type='checkbox' checked><label><h3 id='hello'> " + model.get("title") + "</h3></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
+                return $('#list-todos').append("<li><input class='checked' id='"+ model.get("id") + "' type='checkbox' checked><label><h4 class='hello' id='"+ model.get("id") + "'>  " + model.get("title") + "</h4></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
             }
             else
-                return $('#list-todos').append("<li><input class='checked' id='"+ model.get("id") + "' type='checkbox'><label><h3 id='hello'> " + model.get("title") + "</h3></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
+                return $('#list-todos').append("<li><input class='checked' id='"+ model.get("id") + "' type='checkbox'><label><h4 class='hello' id='"+ model.get("id") + "' >  " + model.get("title") + "</h4></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
         },
         
         // Remove the item, destroy the model from *localStorage* and delete its view.
@@ -83,13 +84,39 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
             
             var id = $(e.target).attr("id");
             if(id !== ""){
-                console.log(id);
                    var model = this.todos.get(id);
                    model.destroy();
                    this.addAll();
             }else {
                 console.log("null");
             }
+        },
+        
+        edit: function(e){
+            var id = $(e.target).attr("id");
+            var model = this.todos.get(id);
+            var title =  model.get("title");
+            $( "#" + id ).remove();
+            $( "#" + id ).replaceWith("<input type='textarea'  id='"+ id + "' class='editform' placeholder='"+ title +"'>");
+            
+
+        },
+        
+        edititem: function(e){
+            if (e.which !== 13 ) { return; }
+            var id = $(e.target).attr("id");
+            var model = this.todos.get(id);
+            var input = $('#'+ id).val().trim();
+            if (input.length > 0) {
+                model.save({ title: input });
+                this.addAll();
+            }
+            else{
+                var oldtitle =  model.get("title");
+                model.save({ title: oldtitle });
+                this.addAll();
+            }
+                
         },
         
         additem: function(e){
