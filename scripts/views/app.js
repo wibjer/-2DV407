@@ -7,9 +7,9 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         
         //making an event for the button
         events:{
-            'keypress #metaSourceValue': 'additem',
-            'click .destroy':        'delete',
-            'click .checked':	'checked'
+            'keypress #submit':    'additem',
+            'click .destroy':      'delete',
+            'click .checked':	   'checked'
         },
         
         initialize: function() {
@@ -20,6 +20,7 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         },
         
         render: function(){
+            
             var that = this;
             this.todos.each(function (todo) {
                 that.renderOne(todo);
@@ -37,21 +38,22 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         
         newAtt: function(){
             return {
-                title: $('#metaSourceValue').val(),
+                title: $('#submit').val(),
                 completed: false,
                 id: Math.floor((Math.random()*500)+1) 
             };
         },
         
         count: function(){
-            var number = this.todos.length;
+			var remaining = this.todos.remaining().length;
+			
+            var number = remaining;
             $( "#visible" ).remove();
             console.log(number);
-            if(number == 0)
+            if(number === 0)
             {
-                return null;
+                number = "nothing"
             }
-            else
             
             return $('#count').append("<h3 id='visible'>Shit 2 do left: " + number + "</h3>");
         },
@@ -62,6 +64,7 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
                    var model = this.todos.get(id);
                    model.toggle();
             }
+            this.count();
 		},
 		
         renderOne: function(model){
@@ -92,7 +95,7 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
         additem: function(e){
             if (e.which !== 13 ) { return; }
 
-            var input = $('#metaSourceValue').val().trim();
+            var input = $('#submit').val().trim();
 
             if (input.length > 0) {
                 
