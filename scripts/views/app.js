@@ -27,10 +27,12 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
             var that = this;
             this.todos.each(function (todo) {
                 that.renderOne(todo);
+                
 
             });
             
         },
+        
         
         addAll: function () {
 			this.$('#list-todos').html('');
@@ -97,7 +99,7 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
             var model = this.todos.get(id);
             var title =  model.get("title");
             $( "#" + id ).remove();
-            $( "#" + id ).replaceWith("<input type='textarea'  id='"+ id + "' class='editform' placeholder='"+ title +"'>");
+            $( "#" + id ).replaceWith("<input type='textarea'  id='"+ id + "' class='editform' value='"+ title +"'>");
             
 
         },
@@ -132,35 +134,10 @@ define(['backbone', 'underscore', 'jquery', 'models/AppModel', 'collections/AppC
                 newModel.save();
 
                 $( "#fail" ).remove();
-                $("#metaSourceValue").val('');
+                $("#submit").val('');
             } else {
                 this.$el.append("<p id='fail'>Are you retarded? please fill the form!!!</p>");
             }
-/*
-            collection.create(this.newAtt());
-
-            this.model = new Todo({
-                title: $('#metaSourceValue').val().trim()
-            });
-
-            if(!$('#metaSourceValue').val().trim())
-            {
-                if($("#fail").length == 0){
-                    if(this.count > 0)
-                    {
-                        this.$el.append("<p id='fail'>Are you retarded? please fill the form!!!</p>");
-                    }
-                    else{
-                        this.$el.append("<p id='fail'>What an idiot..Fill the fucking form!!</p>");
-                        this.count++;
-                    }
-                }
-            }
-            else{
-                $( "#fail" ).remove();
-                this.$el.append("<ul><li><h3 id='hello'>" + this.title() + "</h3></li></ul>");
-                $("#metaSourceValue").val('');
-            }*/
         }
     });
   return App;
