@@ -1,15 +1,18 @@
 require.config({
 	baseUrl: "scripts/",
 	paths: {
+	        'backbone': 'vendor/backbone',
+			'backbone.localStorage': 'vendor/backbone.localStorage',
 			'jquery': 'vendor/jquery',
 			'underscore': 'vendor/underscore',
-			'backbone': 'vendor/backbone',
-			'backbone.localStorage': 'vendor/backbone.localStorage',
-			'bootstrap': 'vendor/bootstrap'
+			'bootstrap': 'vendor/bootstrap',
+			'routers': 'vendor/router',
+			'text': 'vendor/text'
 	}
 });
 
-require(['views/app', 'views/menu', 'models/AppModel'], function(AppView, menuView, Todo) {
-    new AppView( { model: new Todo() });
-	new menuView();
+require(['backbone', 'router'], function(Backbone, Router) {
+    var container = $(".jumbotron");
+    new Router({el: container});
+    Backbone.history.start();
 });
