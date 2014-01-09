@@ -1,4 +1,3 @@
-// Making hello world 
 define(['backbone', 'underscore', 'jquery', 'collections/AppController', 'models/AppModel', 'text!templates/main.html'], 
         function(Backbone, _, $, Collection, Todo, mainTemplate) {
 
@@ -22,6 +21,8 @@ define(['backbone', 'underscore', 'jquery', 'collections/AppController', 'models
         },
         
         render: function(){
+            $('#about').removeClass('active');
+            $('#home').addClass('active');
             this.$el.html(this.template(this));
             this.addAll();
             return this;
@@ -41,7 +42,6 @@ define(['backbone', 'underscore', 'jquery', 'collections/AppController', 'models
        
         addAll: function () {
             $('#list-todos').empty();
-            console.log("Current collection", Collection);
 			Collection.each(this.renderOne, this);
 			this.count();
 		},
@@ -56,15 +56,13 @@ define(['backbone', 'underscore', 'jquery', 'collections/AppController', 'models
         
         count: function(){
 			var remaining = Collection.remaining().length;
-			
             var number = remaining;
             $( "#visible" ).remove();
             if(number === 0)
             {
                 number = "0 tasks and your mom"
             }
-            
-            return $('#count').append("<h3 id='visible'>Shit 2 do left: " + number + "</h3>");
+            $('#count').append("<p id='visible'>Shit 2 do left: " + number + "</p>");
         },
          
         checked: function (e) {

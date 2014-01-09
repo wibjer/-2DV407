@@ -15,6 +15,8 @@ define(['backbone', 'underscore', 'jquery','text!templates/about.html'],
             
         },
         render: function(){
+            $('#home').removeClass('active');
+            $('#about').addClass('active');
            this.$el.html(this.template(this));
            return this;
         }

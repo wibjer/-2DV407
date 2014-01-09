@@ -1,8 +1,7 @@
 define(['backbone','views/app','views/about'], function(Backbone, App, About) {
     
     return Backbone.Router.extend({
-        view: {}
-        ,
+        
         initialize: function(opt) {
             this.el = opt.el;
         },
@@ -11,26 +10,19 @@ define(['backbone','views/app','views/about'], function(Backbone, App, About) {
             "": "index",
             "about": "about"
         },
-        changeView: function(newView) {
-            
-            if(typeof this.view.dispose === "function") {
-                    this.view.dispose();
-            }
-            this.view = newView;
-        },
         
         index: function() {
-            this.changeView(new App());
+            var view = new App();
             this.el.empty();
-            this.el.append(this.view.render().el);
+            this.el.append(view.render().el);
             
             
         },
         
         about: function() {
-            this.changeView(new About());
+            var view = new About();
             this.el.empty();
-            this.el.append(this.view.render().el);
+            this.el.append(view.render().el);
         }
     });
 });
