@@ -1,10 +1,10 @@
-define(['backbone', 'underscore', 'jquery', 'collections/AppController', 'models/AppModel', 'text!templates/main.html'], 
-        function(Backbone, _, $, Collection, Todo, mainTemplate) {
+define(['backbone', 'underscore', 'jquery', 'todomodel', 'text!templates/main.html'],
+        function(Backbone, _, $, Todo, mainTemplate) {
 
     var App = Backbone.View.extend({
-        
+
         template: _.template(mainTemplate),
-        
+
         //making an event for the button
         events:{
             'keypress #submit':    'additem',
@@ -12,14 +12,14 @@ define(['backbone', 'underscore', 'jquery', 'collections/AppController', 'models
             'click .checked':       'checked',
             'dblclick .hello':       'edit',
             'keypress .editform':    'edititem'
-            
+
         },
-        
+
         initialize: function() {
-            Collection.fetch();
+            this.collection.fetch();
             //this.render();
         },
-        
+
         render: function(){
             $('#about').removeClass('active');
             $('#home').addClass('active');
@@ -27,7 +27,7 @@ define(['backbone', 'underscore', 'jquery', 'collections/AppController', 'models
             this.addAll();
             return this;
         },
-        
+
         renderOne: function(model){
             this.count();
             if(model.get("completed")=== true)
@@ -39,10 +39,10 @@ define(['backbone', 'underscore', 'jquery', 'collections/AppController', 'models
 
             }
         },
-       
+
         addAll: function () {
             $('#list-todos').empty();
-			Collection.each(this.renderOne, this);
+			this.collection.each(this.renderOne, this);
 			this.count();
 		},
 
@@ -50,57 +50,57 @@ define(['backbone', 'underscore', 'jquery', 'collections/AppController', 'models
             return {
                 title: $('#submit').val(),
                 completed: false,
-                id: Math.floor((Math.random()*500)+1) 
+                id: Math.floor((Math.random()*500)+1)
             };
         },
-        
+
         count: function(){
-			var remaining = Collection.remaining().length;
+			var remaining = this.collection.remaining().length;
             var number = remaining;
             $( "#visible" ).remove();
             if(number === 0)
             {
-                number = "0 tasks and your mom"
+                number = "0 tasks and your mom";
             }
             $('#count').append("<p id='visible'>Shit 2 do left: " + number + "</p>");
         },
-         
+
         checked: function (e) {
             var id = $(e.target).attr("id");
             if(id !== ""){
-                   var model = Collection.get(id);
+                   var model = this.collection.get(id);
                    model.toggle();
             }
             this.count();
 		},
-		
+
         // Remove the item, destroy the model from *localStorage* and delete its view.
         delete: function(e){
-            
+
             var id = $(e.target).attr("id");
             if(id !== ""){
-                   var model = Collection.get(id);
+                   var model = this.collection.get(id);
                    model.destroy();
                    this.addAll();
             }else {
                 console.log("null");
             }
         },
-        
+
         edit: function(e){
             var id = $(e.target).attr("id");
-            var model = Collection.get(id);
+            var model = this.collection.get(id);
             var title =  model.get("title");
             $( "#" + id ).remove();
             $( "#" + id ).replaceWith("<input type='textarea'  id='"+ id + "' class='editform' value='"+ title +"'>");
-            
+
 
         },
-        
+
         edititem: function(e){
             if (e.which !== 13 ) { return; }
             var id = $(e.target).attr("id");
-            var model = Collection.get(id);
+            var model = this.collection.get(id);
             var input = $('#'+ id).val().trim();
             if (input.length > 0) {
                 model.save({ title: input });
@@ -111,17 +111,17 @@ define(['backbone', 'underscore', 'jquery', 'collections/AppController', 'models
                 model.save({ title: oldtitle });
                 this.addAll();
             }
-                
+
         },
-        
+
         additem: function(e){
             if (e.which !== 13 ) { return; }
             var input = $('#submit').val().trim();
             $( "#fail" ).remove();
             if (input.length > 0) {
-                
+
                var newModel = new Todo(this.newAtt());
-                Collection.add(newModel);
+                this.collection.add(newModel);
                 this.renderOne(newModel);
                 newModel.save();
 
