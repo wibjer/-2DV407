@@ -32,10 +32,10 @@ define(['backbone', 'underscore', 'jquery', 'todomodel', 'text!templates/main.ht
             this.count();
             if(model.get("completed")=== true)
             {
-                this.$('#list-todos').append("<li><input class='checked' id='"+ model.get("id") + "' type='checkbox' checked><label><h4 class='hello' id='"+ model.get("id") + "'>  " + model.get("title") + "</h4></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
+                this.$('#list-todos').append("<li><input class='checked' id='"+ model.get("id") + "' type='checkbox' checked><label><h4 class='hello' id='"+ model.get("id") + "'>  " + model.get("title") + "</h4></label>     <button id='"+ model.get("id") + "' class='destroy'>x</button></input></li>");
             }
             else {
-                this.$('#list-todos').append("<li><input class='checked' id='"+ model.get("id") + "' type='checkbox'><label><h4 class='hello' id='"+ model.get("id") + "' >  " + model.get("title") + "</h4></label><button id='"+ model.get("id") + "' class='destroy'></button></input></li>");
+                this.$('#list-todos').append("<li><input class='checked' id='"+ model.get("id") + "' type='checkbox'><label><h4 class='hello' id='"+ model.get("id") + "' >  " + model.get("title") + "</h4></label>      <button id='"+ model.get("id") + "' class='destroy'>x</button></input></li>");
 
             }
         },
@@ -118,7 +118,7 @@ define(['backbone', 'underscore', 'jquery', 'todomodel', 'text!templates/main.ht
             if (e.which !== 13 ) { return; }
             var input = $('#submit').val().trim();
             $( "#fail" ).remove();
-            if (input.length > 0) {
+            if (input.length > 0 && input.match(/^[a-zA-Z]+$/)) {
 
                var newModel = new Todo(this.newAtt());
                 this.collection.add(newModel);
@@ -126,8 +126,9 @@ define(['backbone', 'underscore', 'jquery', 'todomodel', 'text!templates/main.ht
                 newModel.save();
 
                 $("#submit").val('');
-            } else {
-                this.$el.append("<p id='fail'>Are you retarded? please fill the form!!!</p>");
+            }
+          else {
+                this.$el.append("<p id='fail'>Are you retarded? please fill the form and no illegal characters!!!</p>");
             }
         }
     });
