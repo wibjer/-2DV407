@@ -1,5 +1,7 @@
 /* Feel free to use @import. r.js will merge them, when building */
-
+#list-todos{
+list-style: none;
+}
 .editform {
   /*display: block;
   width: 100%;*/
