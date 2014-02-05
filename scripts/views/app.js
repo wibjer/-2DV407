@@ -32,10 +32,10 @@ define(['backbone', 'underscore', 'jquery', 'todomodel', 'text!templates/main.ht
             this.count();
             if(model.get("completed")=== true)
             {
-                this.$('#list-todos').append("<li><a id='"+ model.get("id") + "' class='destroy'>X</a></li><input type='checkbox' name='checkboxG4' id='"+ model.get("id") + "' class='css-checkbox' checked><label for='"+ model.get("id") + "' class='css-label' id='"+ model.get("id") + "'>" + model.get("title") + "</label>");
+                this.$('#list-todos').append("<li><a id='"+ model.get("id") + "' class='destroy'>X</a><input type='checkbox' name='checkboxG4' id='"+ model.get("id") + "' class='css-checkbox' checked><label for='"+ model.get("id") + "' class='css-label' id='"+ model.get("id") + "'>" + model.get("title") + "</label></li>");
             }
             else {
-                this.$('#list-todos').append("<li><a id='"+ model.get("id") + "' class='destroy'>X</a></li><input type='checkbox' name='checkboxG4' id='"+ model.get("id") + "' class='css-checkbox'><label for='"+ model.get("id") + "' class='css-label' id='"+ model.get("id") + "'>" + model.get("title") + "</label>");
+                this.$('#list-todos').append("<li><a id='"+ model.get("id") + "' class='destroy'>X</a><input type='checkbox' name='checkboxG4' id='"+ model.get("id") + "' class='css-checkbox'><label for='"+ model.get("id") + "' class='css-label' id='"+ model.get("id") + "'>" + model.get("title") + "</label></li>");
 
             }
         },
