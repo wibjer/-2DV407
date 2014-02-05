@@ -7,9 +7,9 @@ define(['backbone', 'underscore', 'jquery', 'todomodel', 'text!templates/main.ht
 
         //making an event for the button
         events:{
-            'keypress #submit':    'additem',
-            'click .destroy':      'delete',
-            'click .checked':       'checked',
+            'keypress #submit':      'additem',
+            'click .destroy':        'delete',
+            'click .css-checkbox':   'checked',
             'dblclick .hello':       'edit',
             'keypress .editform':    'edititem'
 
@@ -32,10 +32,22 @@ define(['backbone', 'underscore', 'jquery', 'todomodel', 'text!templates/main.ht
             this.count();
             if(model.get("completed")=== true)
             {
-                this.$('#list-todos').append("<li><input class='checked' id='"+ model.get("id") + "' type='checkbox' checked><label><h4 class='hello' id='"+ model.get("id") + "'>  " + model.get("title") + "</h4></label></input><a id='"+ model.get("id") + "' class='destroy'>X</a></li>");
+                this.$('#list-todos').append("	<li>
+						<input type="checkbox" name="checkboxG4" id='"+ model.get("id") + "' class="css-checkbox" checked>
+						<label for='"+ model.get("id") + "' class="css-label">
+						<h4 class='hello' id='"+ model.get("id") + "'>  " + model.get("title") + "</h4>
+						</label>
+						<a id='"+ model.get("id") + "' class='destroy'>X</a>
+						</li>");
             }
             else {
-                this.$('#list-todos').append("<li><input class='checked' id='"+ model.get("id") + "' type='checkbox'><label><h4 class='hello' id='"+ model.get("id") + "' >  " + model.get("title") + "</h4></label></input><a id='"+ model.get("id") + "' class='destroy'>X</a></li>");
+                this.$('#list-todos').append("	<li>
+						<input type="checkbox" name="checkboxG4" id='"+ model.get("id") + "' class="css-checkbox">
+						<label for='"+ model.get("id") + "' class="css-label">
+						<h4 class='hello' id='"+ model.get("id") + "'>  " + model.get("title") + "</h4>
+						</label>
+						<a id='"+ model.get("id") + "' class='destroy'>X</a>
+						</li>");
 
             }
         },
