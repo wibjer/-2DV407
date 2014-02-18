@@ -118,7 +118,7 @@ define(['backbone', 'underscore', 'jquery', 'todomodel', 'text!templates/main.ht
             if (e.which !== 13 ) { return; }
             var input = $('#submit').val().trim();
             $( "#fail" ).remove();
-            if (input.length > 0 && input.match(/^[a-zA-Z]+$/)) {
+            if (input.length > 0 && input.match(/^[A-ZÅÄÖa-zåäö0-9 _]*$/)) {
 
                var newModel = new Todo(this.newAtt());
                 this.collection.add(newModel);
